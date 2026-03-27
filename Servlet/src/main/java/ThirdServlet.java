@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -12,14 +12,9 @@ public class ThirdServlet extends HttpServlet {
 
         String name = request.getParameter("username");
 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        request.setAttribute("name", name);
 
-        if (name == null || name.trim().isEmpty()) {
-            out.println("<h2 style='color:red;'>Name cannot be empty </h2>");
-        } else {
-            out.println("<h1>Hello " + name + " 👋</h1>");
-            out.println("<p>UC3 POST + Validation Working</p>");
-        }
+        RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
+        rd.forward(request, response);
     }
 }
